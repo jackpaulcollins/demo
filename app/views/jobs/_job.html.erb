@@ -1,7 +1,14 @@
 <div id="<%= dom_id job %>">
-  <p>
-    <strong>Name:</strong>
-    <%= job.name %>
-  </p>
+  <h1>Job Name: <%= job.name %></h1>
+  
+
+  <hr>
+
+  <strong>Template questions and responses</strong>
+  <h2>Template Name: <span style="color:blue"><%= job.job_template.title %></span></h2>
+  <% job.job_template.job_attributes.each do |attribute| %>
+      <h2>Question: <span style="color:blue"><%= attribute.name %></span> </h1>
+      <h2>Answer: <span style="color:blue"><%= attribute.job_attribute_answers.first.answer %></span></h2>
+  <% end %>
 
 </div>

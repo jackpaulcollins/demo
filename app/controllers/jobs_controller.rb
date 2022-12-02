@@ -34,10 +34,10 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params.except(:job_template_attribute_answers))
+    build_answers(job_params[:job_template_attribute_answers].to_h)
 
     respond_to do |format|
       if @job.save
-        build_answers(job_params[:job_template_attribute_answers].to_h)
 
         format.html { redirect_to job_url(@job), notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
@@ -52,7 +52,7 @@ class JobsController < ApplicationController
   def update
     respond_to do |format|
       if @job.update(job_params.except(:job_template_attribute_answers))
-        build_answers(job_params[:job_template_attribute_answers].to_h)
+         build_answers(job_params[:job_template_attribute_answers].to_h)
 
         format.html { redirect_to job_url(@job), notice: "Job was successfully updated." }
         format.json { render :show, status: :ok, location: @job }

@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_045713) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_105142) do
   create_table "job_attribute_answers", force: :cascade do |t|
     t.integer "job_attribute_id", null: false
     t.string "answer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "job_id"
     t.index ["job_attribute_id"], name: "index_job_attribute_answers_on_job_attribute_id"
+    t.index ["job_id"], name: "index_job_attribute_answers_on_job_id"
   end
 
   create_table "job_attributes", force: :cascade do |t|
