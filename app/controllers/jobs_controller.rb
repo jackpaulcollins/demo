@@ -13,9 +13,9 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     if job_params.present?
-      @job = Job.new(job_template_id: job_params[:job_template_id])
-      return @job
+      return @job = Job.new(job_template_id: job_params[:job_template_id])
     end
+
     @job = Job.new
   end
 
