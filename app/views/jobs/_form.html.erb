@@ -23,16 +23,12 @@
 
   <%= turbo_frame_tag :job_template_field do %>
 
-  <%= job.job_template %>
-
     <% if job.job_template.present? %>
-      <%= form.fields_for :job_template_attribute_answers do |f| %>
         <% job.job_template.job_attributes.each do |attribute| %>
-          <%= f.label attribute.name %>
-          <%= f.text_field :answer %>
-          <%= f.hidden_field :job_attribute_id, value: attribute.id %>
-          <% end %>
-      <% end %>
+          <%= attribute.name %>
+          <input name="job[job_template_attribute_answers][answer]" >
+          <input type="hidden" name="job[job_template_attribute_answers][job_attribute_id]" value=<%= attribute.id %>>
+        <% end %>
     <% end %>
   <% end %>
 

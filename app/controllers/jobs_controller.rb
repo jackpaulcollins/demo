@@ -25,8 +25,9 @@ class JobsController < ApplicationController
 
   def build_answers(answers)
     [answers].each do |answer|
-      attribute = @job.job_template.job_attributes.where(id: answer[:job_attribute_id]).first
-      JobAttributeAnswer.create(job_attribute: attribute, answer: answer[:answer])
+      attribute_id = answer[:job_attribute_id]
+      answer = answer[:answer]
+      @job.set_template_answers(attribute_id, answer)
     end
   end
 
@@ -34,10 +35,10 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params.except(:job_template_attribute_answers))
 
-    build_answers(job_params[:job_template_attribute_answers].to_h)
-
     respond_to do |format|
       if @job.save
+        build_answers(job_params[:job_template_attribute_answers].to_h)
+
         format.html { redirect_to job_url(@job), notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
       else
@@ -50,7 +51,9 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1 or /jobs/1.json
   def update
     respond_to do |format|
-      if @job.update(job_params)
+      if @job.update(job_params.except(:job_template_attribute_answers))
+        build_answers(job_params[:job_template_attribute_answers].to_h)
+
         format.html { redirect_to job_url(@job), notice: "Job was successfully updated." }
         format.json { render :show, status: :ok, location: @job }
       else
