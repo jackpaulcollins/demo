@@ -26,8 +26,7 @@
     <% if job.job_template.present? %>
         <% job.job_template.job_attributes.each do |attribute| %>
           <%= attribute.name %>
-          <input name="job[job_template_attribute_answers][answer]" >
-          <input type="hidden" name="job[job_template_attribute_answers][job_attribute_id]" value=<%= attribute.id %>>
+          <input multiple name="job[job_template_attribute_answers][<%= attribute.id %>][answer][]" >
         <% end %>
     <% end %>
   <% end %>

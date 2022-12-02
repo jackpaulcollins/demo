@@ -6,9 +6,10 @@
 
   <strong>Template questions and responses</strong>
   <h2>Template Name: <span style="color:blue"><%= job.job_template.title %></span></h2>
-  <% job.job_template.job_attributes.each do |attribute| %>
-      <h2>Question: <span style="color:blue"><%= attribute.name %></span> </h1>
-      <h2>Answer: <span style="color:blue"><%= attribute.job_attribute_answers.first.answer %></span></h2>
+  <% job.attributes_and_answers.each do |set| %>
+      <strong>question: </strong><%= set[:name] %> 
+      <strong>answer: </strong><%= set[:answer] %>
+      <br>
   <% end %>
 
 </div>

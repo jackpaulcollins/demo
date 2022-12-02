@@ -16,6 +16,15 @@ class Job < ApplicationRecord
   end
 
   def template_changing?
-    job_template_id_previously_was != job_template_id
+    !job_template_id_previously_was.nil? && job_template_id_previously_was != job_template_id
+  end
+
+  def attributes_and_answers
+    job_template.job_attributes.map do |attribute|
+      {
+        name: attribute.name,
+        answer: job_attribute_answers.find_by(job_attribute: attribute)&.answer
+      }
+    end
   end
 end
