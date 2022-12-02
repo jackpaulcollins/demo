@@ -12,7 +12,11 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    @job = Job.new job_params
+    if job_params.present?
+      @job = Job.new(job_template_id: job_params[:job_template_id])
+      return @job
+    end
+    @job = Job.new
   end
 
   # GET /jobs/1/edit

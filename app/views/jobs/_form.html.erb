@@ -23,6 +23,8 @@
 
   <%= turbo_frame_tag :job_template_field do %>
 
+  <%= job.job_template %>
+
     <% if job.job_template.present? %>
       <%= form.fields_for :job_attribute_answers_attributes do |f|%>
         <% job.job_template.job_attributes.each do |attribute| %>
