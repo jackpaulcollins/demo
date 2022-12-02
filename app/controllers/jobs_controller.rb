@@ -23,9 +23,19 @@ class JobsController < ApplicationController
   def edit
   end
 
-  # POST /jobs or /jobs.json
+  def build_answers(answers)
+    debugger
+    [answers].each do |answer|
+      attribute = @job.job_template.job_attributes.where(id: answer[:job_attribute_id]).first
+      JobAttributeAnswer.create(job_attribute: attribute, answer: answer[:answer])
+    end
+  end
+
+
   def create
-    @job = Job.new(job_params)
+    @job = Job.new(job_params.except(:job_template_attribute_answers))
+
+    build_answers(job_params[:job_template_attribute_answers].to_h)
 
     respond_to do |format|
       if @job.save
@@ -69,6 +79,8 @@ class JobsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_params
-      params.fetch(:job, {}).permit(:name, :job_template_id, job_attribute_answers_attributes: [:job_attribute_id, :answer])
+      params.fetch(:job, {}).permit(:name, 
+                                    :job_template_id, 
+                                    job_template_attribute_answers: [:job_attribute_id, :answer])
     end
 end

@@ -26,12 +26,12 @@
   <%= job.job_template %>
 
     <% if job.job_template.present? %>
-      <%= form.fields_for :job_attribute_answers_attributes do |f|%>
+      <%= form.fields_for :job_template_attribute_answers do |f| %>
         <% job.job_template.job_attributes.each do |attribute| %>
           <%= f.label attribute.name %>
-          <%= f.text_field :answer%>
+          <%= f.text_field :answer %>
           <%= f.hidden_field :job_attribute_id, value: attribute.id %>
-        <% end %>
+          <% end %>
       <% end %>
     <% end %>
   <% end %>
