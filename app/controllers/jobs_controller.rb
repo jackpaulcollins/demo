@@ -24,7 +24,6 @@ class JobsController < ApplicationController
   end
 
   def build_answers(answers)
-    debugger
     [answers].each do |answer|
       attribute = @job.job_template.job_attributes.where(id: answer[:job_attribute_id]).first
       JobAttributeAnswer.create(job_attribute: attribute, answer: answer[:answer])
